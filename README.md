@@ -20,3 +20,29 @@ $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 
 ```
+## Excercise 1.3
+```
+$ docker run -it devopsdockeruh/pull_exercise
+Give me the password: basics
+You found the correct password. Secret message is:
+"This is the secret message"
+```
+## Excercise 1.4
+```
+$ docker run -d --name harjoitus devopsdockeruh/exec_bash_exercise
+$ docker exec harjoitus tail -f ./logs.txt
+Thu, 16 Apr 2020 11:45:22 GMT
+Secret message is:
+"Docker is easy"
+```
+## Excercise 1.5
+```
+$ docker run -d --name harjoitus ubuntu:16.04 sh -c 'while true; do date; sleep 1; done'
+$ docker exec -it harjoitus bash
+root@f884699b3aba:/# apt-get update
+root@f884699b3aba:/# apt-get install curl
+root@f884699b3aba:/# exit
+$ docker exec -it harjoitus sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$websi
+te;'
+
+```

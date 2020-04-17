@@ -44,5 +44,15 @@ root@f884699b3aba:/# apt-get install curl
 root@f884699b3aba:/# exit
 $ docker exec -it harjoitus sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$websi
 te;'
-
 ```
+
+## Excercise 1.6
+```
+$ docker build -t docker-clock .
+$ docker run docker-clock
+```
+```
+FROM devopsdockeruh/overwrite_cmd_exercise
+CMD ["--clock"]
+```
+

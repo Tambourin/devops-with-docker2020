@@ -66,3 +66,11 @@ CMD echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http:
 $ docker build -t curler .
 $ docker run -it curler
 ```
+
+## Excercise 1.8
+```
+$ touch logs.txt
+$ docker run -v $(pwd)/logs.txt:/usr/app/logs.txt devopsdockeruh/first_volume_exercise
+```
+
+

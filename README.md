@@ -73,4 +73,10 @@ $ touch logs.txt
 $ docker run -v $(pwd)/logs.txt:/usr/app/logs.txt devopsdockeruh/first_volume_exercise
 ```
 
-
+## Excercise 1.9
+```
+$ docker run -d -p 80:80 devopsdockeruh/ports_exercise
+(VM VirtualBoxin asetuksista port forwarding...)
+$ curl localhost
+Ports configured correctly!!
+```

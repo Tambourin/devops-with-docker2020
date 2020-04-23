@@ -80,3 +80,17 @@ $ docker run -d -p 80:80 devopsdockeruh/ports_exercise
 $ curl localhost
 Ports configured correctly!!
 ```
+
+## Excercise 1.10
+```
+FROM ubuntu:16.04
+RUN apt-get update && apt-get install -y git && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+RUN git clone https://github.com/Tambourin/frontend-example-docker.git
+RUN cd /frontend-example-docker && npm install
+RUN npm install -g serve
+WORKDIR /frontend-example-docker
+RUN npm run build
+EXPOSE 5000
+CMD serve -s -l 5000 dist
+```

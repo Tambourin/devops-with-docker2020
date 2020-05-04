@@ -135,3 +135,25 @@ CMD npm start
 
 $ docker run -v $(pwd)/logs.txt:/backend-example-docker-master/logs.txt -p 8000:8000 backend
 ```
+### Excercise 1.13
+```
+FROM openjdk:8
+RUN apt-get update && apt-get install -y unzip curl
+RUN curl -L -o master.zip https://github.com/docker-hy/spring-example-project/archive/master.zip
+RUN unzip master.zip
+WORKDIR /spring-example-project-master
+RUN ./mvnw package
+CMD java -jar ./target/docker-example-1.1.3.jar
+```
+
+### Excercise 1.14
+```
+FROM ruby:2.6.0
+RUN apt-get update && apt-get install -y unzip curl nodejs
+RUN curl -L -o master.zip https://github.com/docker-hy/rails-example-project/archive/master.zip
+RUN unzip master.zip
+WORKDIR /rails-example-project-master
+RUN bundle install
+RUN rails db:migrate
+CMD rails s
+```

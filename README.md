@@ -107,3 +107,31 @@ CMD npm start
 
 $ docker run -v $(pwd)/logs.txt:/backend-example-docker-master/logs.txt -p 8000:8000 backend
 ```
+### Excercise 1.12
+```
+FROM ubuntu:16.04
+RUN apt-get update && apt-get install -y git && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+RUN git clone https://github.com/Tambourin/frontend-example-docker.git
+WORKDIR /frontend-example-docker
+RUN npm install && npm install -g serve
+ENV API_URL=http://localhost:8000
+RUN npm run build
+EXPOSE 5000
+CMD serve -s -l 5000 dist
+
+$ docker run -p 5000:5000 frnt
+```
+```
+FROM node
+RUN apt-get update && apt-get install -y unzip curl
+RUN curl -L -o master.zip https://github.com/docker-hy/backend-example-docker/archive/master.zip
+RUN unzip master.zip
+WORKDIR /backend-example-docker-master
+RUN npm install
+EXPOSE 8000
+ENV FRONT_URL=http://localhost:5000
+CMD npm start
+
+$ docker run -v $(pwd)/logs.txt:/backend-example-docker-master/logs.txt -p 8000:8000 backend
+```

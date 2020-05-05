@@ -165,3 +165,17 @@ https://hub.docker.com/repository/docker/tambourin/spring
 ```
 https://docker-excercise.herokuapp.com/
 ```
+### Excercise 1.17
+Dockerfile. Start with Ubuntu and install Node and Npm
+```
+FROM ubuntu:16.04
+EXPOSE 3000
+WORKDIR /mydev
+RUN apt-get update && apt-get install -y curl npm
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+CMD npm start
+```
+Example: To start a React app (located in working directory) in a container following command can be used
+```
+$ docker run -p 3000:3000 -v $(pwd):/mydev devenv
+```

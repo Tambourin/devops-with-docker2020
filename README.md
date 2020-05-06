@@ -179,7 +179,7 @@ Example: To start a React app (located in working directory) in a container foll
 ```
 $ docker run -p 3000:3000 -v $(pwd):/mydev devenv
 ```
-### Excercise 1.18
+### Excercise 2.1
 ```
 version: '3.5'
 
@@ -190,7 +190,7 @@ services:
       - ./logs.txt:/usr/app/logs.txt
     container_name: first
 ```
-### Excercise 1.19
+### Excercise 2.2
 ```
 version: '3'                                                                                                           
 services:
@@ -199,7 +199,7 @@ services:
     ports:
       -  80:80
 ```
-### Excercise 1.20
+### Excercise 2.3
 ```
 version: '3.5'
 
@@ -217,7 +217,27 @@ services:
     ports:
     -  8000:8000
 ```
-### Excercise 1.21
+### Excercise 2.4
 ```
 $ docker-compose up --scale compute=2
+```
+### Excercise 2.5
+```
+version: '3.5'
+services:
+  front:
+    build: ../front
+    environment:
+    -  API_URL=http://localhost:8000
+    ports:
+    -  5000:5000
+  backend:
+    build: ../back
+    environment:
+    -  FRONT_URL=http://localhost:5000
+    -  REDIS=redis
+    ports:
+    -  8000:8000
+  redis:
+    image: redis
 ```

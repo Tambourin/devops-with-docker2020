@@ -217,3 +217,7 @@ services:
     ports:
     -  8000:8000
 ```
+### Excercise 1.21
+```
+$ docker-compose up --scale compute=2
+```

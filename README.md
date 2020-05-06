@@ -199,3 +199,21 @@ services:
     ports:
       -  80:80
 ```
+### Excercise 1.20
+```
+version: '3.5'
+
+services:
+  front:
+    build: ../front
+    environment:
+    -  API_URL=http://localhost:8000
+    ports:
+    -  5000:5000
+  backend:
+    build: ../back
+    environment:                                                                                                       
+    -  FRONT_URL=http://localhost:5000
+    ports:
+    -  8000:8000
+```

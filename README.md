@@ -179,3 +179,15 @@ Example: To start a React app (located in working directory) in a container foll
 ```
 $ docker run -p 3000:3000 -v $(pwd):/mydev devenv
 ```
+### Excercise 1.18
+```
+version: '3.5'
+
+services:
+  first_volume:
+    image: devopsdockeruh/first_volume_exercise
+    volumes:
+      - ./logs.txt:/usr/app/logs.txt
+    container_name: first
+```
+

@@ -190,4 +190,12 @@ services:
       - ./logs.txt:/usr/app/logs.txt
     container_name: first
 ```
-
+### Excercise 1.19
+```
+version: '3'                                                                                                           
+services:
+  portter:
+    image: devopsdockeruh/ports_exercise
+    ports:
+      -  80:80
+```

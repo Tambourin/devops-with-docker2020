@@ -241,3 +241,27 @@ services:
   redis:
     image: redis
 ```
+### Excercise 2.7
+```
+version: '3.5'
+services:
+  front:
+    image: kurkkufront
+    ports:
+    -  3000:3000
+  back:
+    image: kurkkuback
+    ports:
+    -  5000:5000
+    volumes:
+    -  models:/src/model
+  training:
+    image: kurkkutraining
+    build: https://github.com/docker-hy/ml-kurkkumopo-training.git
+    volumes:
+    -  models:/src/model
+    -  images:/src/imgs
+volumes:
+  models:
+  images:
+```

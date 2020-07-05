@@ -403,3 +403,25 @@ services:
   redis:
     image: redis
 ```
+```
+FROM node
+RUN apt-get update && apt-get install -y git && apt-get install -y curl
+RUN git clone https://github.com/Tambourin/frontend-example-docker.git
+RUN cd /frontend-example-docker && npm install
+RUN npm install -g serve
+WORKDIR /frontend-example-docker
+RUN npm run build
+EXPOSE 5000
+CMD serve -s -l 5000 dist
+```
+```
+FROM node
+RUN apt-get update && apt-get install -y unzip curl
+RUN curl -L -o master.zip https://github.com/docker-hy/backend-example-docker/archive/master.zip
+RUN unzip master.zip
+WORKDIR /backend-example-docker-master
+RUN npm install
+EXPOSE 8000
+CMD npm start
+```
+

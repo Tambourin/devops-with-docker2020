@@ -241,6 +241,37 @@ services:
   redis:
     image: redis
 ```
+### Excercise 2.6
+```
+version: '3.5'
+services:
+  front:
+    build: ../frontend
+    environment:
+    -  API_URL=backend
+    ports:
+    -  5000:5000
+  backend:
+    build: ../backend
+    environment:
+    - FRONT_URL=http://localhost:5000
+    - DB_USERNAME=example
+    - DB_PASSWORD=example
+    - DB_HOST=db
+    - REDIS=redis
+    ports:
+    -  8000:8000
+    depends_on:
+    - db
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+     - POSTGRES_USER=example
+     - POSTGRES_PASSWORD=example
+  redis:
+    image: redis
+```
 ### Excercise 2.7
 ```
 version: '3.5'

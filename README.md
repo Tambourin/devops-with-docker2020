@@ -368,3 +368,38 @@ services:
     volumes: 
     - ./redis_data:/data
 ```
+### Excercise 2.10
+Some how it has started to work along the way... Maybe it is because backend url is now not given as ENV so it uses right path now.
+```
+version: '3.5'
+services:
+  nginx:
+    image: nginx
+    volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports: 
+    - 80:80
+    depends_on:
+      - front
+      - backend
+  front:
+    build: ../frontend
+  backend:
+    build: ../backend
+    environment:
+    - DB_USERNAME=example
+    - DB_PASSWORD=example
+    - DB_HOST=db
+    - REDIS=redis
+    depends_on:
+    - db
+    - redis
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+     - POSTGRES_USER=example
+     - POSTGRES_PASSWORD=example
+  redis:
+    image: redis
+```

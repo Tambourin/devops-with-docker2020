@@ -296,3 +296,40 @@ volumes:
   models:
   images:
 ```
+### Excrcise 2.8
+```
+version: '3.5'
+services:
+  nginx:
+    image: nginx
+    volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports: 
+    - 80:80
+    depends_on:
+      - front
+      - backend
+  front:
+    build: ../frontend
+    environment:
+    -  API_URL=backend
+  backend:
+    build: ../backend
+    environment:
+    - FRONT_URL=front
+    - DB_USERNAME=example
+    - DB_PASSWORD=example
+    - DB_HOST=db
+    - REDIS=redis
+    depends_on:
+    - db
+    - redis
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+     - POSTGRES_USER=example
+     - POSTGRES_PASSWORD=example
+  redis:
+    image: redis
+```

@@ -369,7 +369,7 @@ services:
     - ./redis_data:/data
 ```
 ### Excercise 2.10
-Some how it has started to work along the way... Maybe it is because backend url is now not given as ENV so it uses right path now.
+Some how it has started to work along the way... I think it is because backend url is now not given as ENV so it uses the right path.
 ```
 version: '3.5'
 services:

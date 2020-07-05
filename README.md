@@ -333,3 +333,38 @@ services:
   redis:
     image: redis
 ```
+### Excercise 2.9
+```
+version: '3.8'
+services:
+  front:
+    build: ../frontend
+    environment:
+    -  API_URL=http://localhost:8000
+    ports:
+    -  5000:5000
+  backend:
+    build: ../backend
+    environment:
+    - FRONT_URL=http://localhost:5000
+    - DB_USERNAME=example
+    - DB_PASSWORD=example
+    - DB_HOST=db
+    - REDIS=redis
+    ports:
+    -  8000:8000
+    depends_on:
+    - db
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+     - POSTGRES_USER=example
+     - POSTGRES_PASSWORD=example
+    volumes: 
+    - ./database:/var/lib/postgresql/data
+  redis:
+    image: redis
+    volumes: 
+    - ./redis_data:/data
+```

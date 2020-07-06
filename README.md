@@ -424,4 +424,39 @@ RUN npm install
 EXPOSE 8000
 CMD npm start
 ```
+### Excercise 3.1
+front: 1 210 MB -> 242 MB
+back: 997 MB -> 208 MB
+```
+FROM node:slim
 
+ENV API_URL=http://localhost:8000
+
+RUN apt-get update && apt-get install -y git curl && \
+    git clone https://github.com/Tambourin/frontend-example-docker.git && \
+    cd /frontend-example-docker && \
+    npm install && npm install -g serve && \
+    npm run build && \
+    apt-get purge -y --auto-remove git curl && \
+    mv dist ../ && cd .. && rm -r -f frontend-example-docker/
+
+WORKDIR /
+EXPOSE 5000
+
+CMD serve -s -l 5000 dist
+```
+```
+FROM node:slim
+
+RUN apt-get update && \
+  apt-get install -y unzip curl && \
+  curl -L -o master.zip https://github.com/docker-hy/backend-example-docker/archive/master.zip && \
+  unzip master.zip && cd backend-example-docker-master && \
+  npm install && \
+  apt-get purge -y --auto-remove curl unzip && \
+  rm -rf /var/lib/apt/lists/*
+
+WORKDIR /backend-example-docker-master
+
+CMD npm start
+```

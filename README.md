@@ -463,6 +463,36 @@ CMD npm start
 ### Excercise 3.2
 https://github.com/Tambourin/docker-excercise
 
+### Excercise 3.3
+Run with: docker run -it -v /var/run/docker.sock:/var/run/docker.sock <image>
+
+App:
+```
+echo "git url:"
+read input
+echo "create directory appdir"
+echo "cloning..."
+git clone ${input} ./appdir
+echo "building..."
+docker build -t tambourin/testapp ./appdir
+docker login 
+docker push tambourin/testapp
+```
+Dockerfile:
+```
+FROM ubuntu
+
+COPY . ./app
+
+RUN apt-get update && apt-get install -y git curl
+RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+
+WORKDIR /app
+
+CMD ./dockerbuilder
+```
+
+
 ### Excercise 3.4
 ```
 FROM node:slim

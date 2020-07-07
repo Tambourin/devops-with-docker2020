@@ -562,4 +562,29 @@ EXPOSE 5000
 
 CMD echo current user: `whoami` && serve -s -l 5000 dist
 ```
+### Excercise 3.7
+613MB -> 123MB
+Old:
+```
+FROM openjdk:8
+RUN apt-get update && apt-get install -y unzip curl
+RUN curl -L -o master.zip https://github.com/docker-hy/spring-example-project/archive/master.zip
+RUN unzip master.zip
+WORKDIR /spring-example-project-master
+RUN ./mvnw package
+CMD java -jar ./target/docker-example-1.1.3.jar
+```
+new:
+```
+FROM openjdk:8 as build-stage
+RUN git clone https://github.com/docker-hy/spring-example-project.git
+WORKDIR /spring-example-project
+RUN ./mvnw package
+
+FROM openjdk:8-alpine
+COPY --from=build-stage /spring-example-project/target/docker-example-1.1.3.jar example.jar
+RUN adduser -D appuser
+USER appuser
+CMD java -jar example.jar
+```
 

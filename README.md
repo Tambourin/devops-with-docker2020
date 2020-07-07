@@ -564,6 +564,7 @@ CMD echo current user: `whoami` && serve -s -l 5000 dist
 ```
 ### Excercise 3.7
 613MB -> 123MB
+
 Old:
 ```
 FROM openjdk:8

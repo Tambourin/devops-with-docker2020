@@ -543,15 +543,13 @@ CMD echo current user: `whoami` && echo folder privileges: `ls -l ./` && npm sta
 ### Excercise 3.6
 173MB -> 126MB
 ```
-FROM node:alpine as build-stage
+FROM node as build-stage
 
 ENV API_URL=http://localhost:8000
-RUN apk add --no-cache git && \
-    git clone https://github.com/Tambourin/frontend-example-docker.git && \
+RUN git clone https://github.com/Tambourin/frontend-example-docker.git && \
     cd /frontend-example-docker && \
     npm install && \
     npm run build
-    
 
 FROM node:alpine
 

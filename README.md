@@ -502,7 +502,7 @@ WORKDIR /backend-example-docker-master
 
 CMD echo current user: `whoami` && echo folder privileges: `ls -l ./` && npm start
 ```
-Excercise 3.5
+### Excercise 3.5
 front 242MB -> 173MB
 back 208MB -> 182MB
 ```
@@ -540,5 +540,29 @@ WORKDIR /backend-example-docker
 
 CMD echo current user: `whoami` && echo folder privileges: `ls -l ./` && npm start
 ```
+### Excercise 3.6
+173MB -> 126MB
+```
+FROM node:alpine as build-stage
 
+ENV API_URL=http://localhost:8000
+RUN apk add --no-cache git && \
+    git clone https://github.com/Tambourin/frontend-example-docker.git && \
+    cd /frontend-example-docker && \
+    npm install && \
+    npm run build && \
+    apk del git
+
+
+FROM node:alpine
+
+COPY --from=build-stage /frontend-example-docker/dist/ /dist
+RUN npm install -g serve
+
+USER node
+WORKDIR /
+EXPOSE 5000
+
+CMD echo current user: `whoami` && serve -s -l 5000 dist
+```
 

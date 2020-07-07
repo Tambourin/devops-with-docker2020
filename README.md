@@ -550,9 +550,8 @@ RUN apk add --no-cache git && \
     git clone https://github.com/Tambourin/frontend-example-docker.git && \
     cd /frontend-example-docker && \
     npm install && \
-    npm run build && \
-    apk del git
-
+    npm run build
+    
 
 FROM node:alpine
 

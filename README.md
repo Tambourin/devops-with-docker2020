@@ -464,7 +464,7 @@ CMD npm start
 https://github.com/Tambourin/docker-excercise
 
 ### Excercise 3.3
-Run with: docker run -it -v /var/run/docker.sock:/var/run/docker.sock <image>
+Run with: docker run -it -v /var/run/docker.sock:/var/run/docker.sock image
 
 App:
 ```

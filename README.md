@@ -462,3 +462,46 @@ CMD npm start
 ```
 ### Excercise 3.2
 https://github.com/Tambourin/docker-excercise
+
+### Excercise 3.4
+```
+FROM node:slim
+
+ENV API_URL=http://localhost:8000
+
+RUN apt-get update && apt-get install -y git curl && \
+    git clone https://github.com/Tambourin/frontend-example-docker.git && \
+    cd /frontend-example-docker && \
+    npm install && npm install -g serve && \
+    npm run build && \
+    apt-get purge -y --auto-remove git curl && \
+    mv dist ../ && cd .. && rm -r -f frontend-example-docker && \
+    useradd -m app 
+
+USER app
+WORKDIR /
+EXPOSE 5000
+
+CMD echo current user: `whoami` && serve -s -l 5000 dist
+```
+```
+FROM node:slim
+
+RUN apt-get update && \
+  apt-get install -y unzip curl && \
+  curl -L -o master.zip https://github.com/docker-hy/backend-example-docker/archive/master.zip && \
+  unzip master.zip && cd backend-example-docker-master && \
+  npm install && \
+  apt-get purge -y --auto-remove curl unzip && \
+  rm -rf /var/lib/apt/lists/*
+RUN useradd -m appuser && chown -R appuser /backend-example-docker-master
+
+USER appuser
+
+WORKDIR /backend-example-docker-master
+
+CMD echo current user: `whoami` && echo folder privileges: `ls -l ./` && npm start
+```
+
+
+
